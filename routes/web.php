@@ -4,13 +4,12 @@
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', 'HomeController@index')->name('home');
+
+Route::group(['as' => 'receipt.', 'prefix' => 'receipt'], function () {
+    Route::get('scan', 'ReceiptController@showScanForm')->name('scan-get');
+    Route::post('scan', 'ReceiptController@scan')->name('scan-post');
+    Route::get('history/{id?}', 'ReceiptController@history')->name('history');
 });
